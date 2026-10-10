@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>NovaAI</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary-container": "#00285d", "primary-container": "#4d8eff",
+            "inverse-on-surface": "#283044", "outline": "#8c909f",
+            "tertiary-container": "#00a572", "on-background": "#dae2fd",
+            "surface-variant": "#2d3449", "on-primary-fixed-variant": "#004395",
+            "on-error": "#690005", "surface-container-high": "#222a3d",
+            "surface-dim": "#0b1326", "surface-container-lowest": "#060e20",
+            "on-surface": "#dae2fd", "surface-container": "#171f33",
+            "tertiary-fixed-dim": "#4edea3", "error-container": "#93000a",
+            "secondary-fixed-dim": "#d0bcff", "primary-fixed": "#d8e2ff",
+            "on-tertiary": "#003824", "error": "#ffb4ab",
+            "on-secondary-fixed-variant": "#5516be", "on-tertiary-fixed": "#002113",
+            "background": "#0b1326", "primary-fixed-dim": "#adc6ff",
+            "on-secondary-fixed": "#23005c", "on-secondary": "#3c0091",
+            "on-tertiary-container": "#00311f", "primary": "#adc6ff",
+            "secondary-container": "#571bc1", "surface-container-highest": "#2d3449",
+            "tertiary-fixed": "#6ffbbe", "surface-tint": "#adc6ff",
+            "on-primary-fixed": "#001a42", "inverse-surface": "#dae2fd",
+            "surface-bright": "#31394d", "secondary": "#d0bcff",
+            "secondary-fixed": "#e9ddff", "on-error-container": "#ffdad6",
+            "on-secondary-container": "#c4abff", "surface": "#0b1326",
+            "on-primary": "#002e6a", "on-surface-variant": "#c2c6d6",
+            "outline-variant": "#424754", "on-tertiary-fixed-variant": "#005236",
+            "surface-container-low": "#131b2e", "inverse-primary": "#005ac2",
+            "tertiary": "#4edea3"
+          },
+          borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+          spacing: { lg: "40px", base: "4px", "margin-desktop": "48px", sm: "16px", xs: "8px", xl: "64px", gutter: "24px", "margin-mobile": "16px", md: "24px" },
+          fontFamily: { "code-sm": ["Geist"], "headline-lg-mobile": ["Inter"], "label-md": ["Geist"], "body-md": ["Inter"], "headline-xl": ["Inter"], "body-lg": ["Inter"], "headline-lg": ["Inter"] },
+          fontSize: {
+            "code-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }],
+            "headline-lg-mobile": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "500" }],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "headline-xl": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body
+  class="bg-surface text-on-surface font-body-md min-h-screen overflow-hidden flex selection:bg-primary-container selection:text-on-primary-container">
+
+  <!-- Mobile top bar -->
+  <header
+    class="md:hidden sticky top-0 z-50 flex justify-between items-center w-full px-md py-xs bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-sm">
+    <div class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">NovaAI</div>
+    <button id="mobileMenuBtn"
+      class="p-2 rounded-full hover:bg-white/5 text-primary active:scale-95 transition-transform"
+      aria-label="Open menu">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </header>
+
+  <!-- Sidebar backdrop (mobile) -->
+  <div id="sidebarBackdrop" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar"
+    class="hidden md:flex flex-col h-screen w-80 fixed left-0 top-0 py-md px-sm gap-y-xs bg-surface-container-low/60 backdrop-blur-2xl border-r border-white/10 shadow-xl z-50">
+    <div class="flex items-center justify-between px-xs mb-md">
+      <div class="flex items-center gap-sm">
+        <div
+          class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-container to-secondary-container flex items-center justify-center shadow-lg">
+          <span class="material-symbols-outlined text-on-primary-container">auto_awesome</span>
+        </div>
+        <div>
+          <h1 class="font-headline-lg text-headline-lg font-bold text-primary" style="font-size:22px;line-height:26px;">
+            NovaAI</h1>
+          <p class="font-label-md text-label-md text-on-surface-variant text-[11px]">v2.0</p>
+        </div>
+      </div>
+      <button id="sidebarCloseBtn" class="md:hidden p-2 rounded-full hover:bg-white/5 text-on-surface-variant"
+        aria-label="Close menu">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <button id="newChatBtn"
+      class="w-full mb-sm bg-gradient-to-r from-primary to-secondary-container text-surface-container-lowest font-label-md text-label-md py-3 rounded-3xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
+      <span class="material-symbols-outlined">add_circle</span>
+      New Chat
+    </button>
+
+    <nav class="flex-1 overflow-y-auto pr-2 hide-scrollbar">
+      <div class="flex flex-col gap-1">
+        <a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant hover:bg-white/10 mx-xs rounded-xl transition-all duration-200 font-label-md text-label-md"
+          href="#">
+          <span class="material-symbols-outlined">analytics</span> Analytics
+        </a>
+        <a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant hover:bg-white/10 mx-xs rounded-xl transition-all duration-200 font-label-md text-label-md"
+          href="#">
+          <span class="material-symbols-outlined">explore</span> Discovery
+        </a>
+      </div>
+
+      <div class="mt-lg">
+        <h3 class="px-xs py-2 text-xs font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+          Recent Chats</h3>
+        <div id="conversationList" class="flex flex-col gap-1 mt-2"></div>
+      </div>
+    </nav>
+
+    <div class="mt-auto pt-sm border-t border-white/10 flex flex-col gap-1">
+      <a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant hover:bg-white/5 mx-xs rounded-xl hover:bg-white/10 transition-all duration-200 font-label-md text-label-md"
+        href="#">
+        <span class="material-symbols-outlined">settings</span> Settings
+      </a>
+      <a class="flex items-center gap-3 py-3 px-4 text-on-surface-variant hover:bg-white/5 mx-xs rounded-xl hover:bg-white/10 transition-all duration-200 font-label-md text-label-md"
+        href="#">
+        <span class="material-symbols-outlined">account_circle</span> Profile
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 flex flex-col h-screen md:pl-80 relative bg-background">
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <div
+        class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] mix-blend-screen transform translate-x-1/3 -translate-y-1/3">
+      </div>
+      <div
+        class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary-container/5 rounded-full blur-[120px] mix-blend-screen transform -translate-x-1/3 translate-y-1/3">
+      </div>
+    </div>
+
+    <!-- Contextual header, shown only once a conversation has messages -->
+    <div id="contextHeader"
+      class="hidden h-16 items-center justify-between px-lg border-b border-white/5 bg-surface/50 backdrop-blur-md z-10 md:flex">
+      <div class="flex items-center gap-4 min-w-0">
+        <h2 id="currentTitle" class="font-headline-lg text-body-lg font-medium text-on-surface truncate">New chat</h2>
+        <span
+          class="px-2 py-1 rounded-md bg-white/5 border border-white/10 font-label-md text-xs text-on-surface-variant whitespace-nowrap">Nova
+          Flash-Lite</span>
+      </div>
+    </div>
+
+    <!-- Welcome / empty state -->
+    <div id="emptyState"
+      class="flex-grow flex flex-col items-center justify-center px-lg py-xl z-10 w-full max-w-5xl mx-auto pb-48 overflow-y-auto">
+      <div class="text-center mb-xl fade-in-up">
+        <h2 class="font-headline-xl text-headline-xl text-on-background mb-xs tracking-tight">Hello, I'm NovaAI 👋</h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">How can I help you today?</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-md w-full max-w-3xl fade-in-up" style="animation-delay:0.15s;">
+        <button data-prompt="What's the current time?"
+          class="suggestion-card group cursor-pointer bg-surface-container-low/40 backdrop-blur-md border border-white/5 hover:border-primary/30 rounded-2xl p-md flex items-center gap-md transition-all duration-300 hover:-translate-y-1 text-left">
+          <div
+            class="flex-shrink-0 w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            🕐</div>
+          <p
+            class="font-body-md text-body-md text-on-background font-medium group-hover:text-primary transition-colors">
+            What's the current time?</p>
+        </button>
+        <button data-prompt="What's today's date?"
+          class="suggestion-card group cursor-pointer bg-surface-container-low/40 backdrop-blur-md border border-white/5 hover:border-primary/30 rounded-2xl p-md flex items-center gap-md transition-all duration-300 hover:-translate-y-1 text-left">
+          <div
+            class="flex-shrink-0 w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            📅</div>
+          <p
+            class="font-body-md text-body-md text-on-background font-medium group-hover:text-primary transition-colors">
+            What's today's date?</p>
+        </button>
+        <button data-prompt="Show me the latest news"
+          class="suggestion-card group cursor-pointer bg-surface-container-low/40 backdrop-blur-md border border-white/5 hover:border-primary/30 rounded-2xl p-md flex items-center gap-md transition-all duration-300 hover:-translate-y-1 text-left">
+          <div
+            class="flex-shrink-0 w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            📰</div>
+          <p
+            class="font-body-md text-body-md text-on-background font-medium group-hover:text-primary transition-colors">
+            Show me the latest news</p>
+        </button>
+        <button data-prompt="Teach me something interesting"
+          class="suggestion-card group cursor-pointer bg-surface-container-low/40 backdrop-blur-md border border-white/5 hover:border-primary/30 rounded-2xl p-md flex items-center gap-md transition-all duration-300 hover:-translate-y-1 text-left">
+          <div
+            class="flex-shrink-0 w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            💡</div>
+          <p
+            class="font-body-md text-body-md text-on-background font-medium group-hover:text-primary transition-colors">
+            Help me learn something</p>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chat state -->
+    <div id="chatWindow"
+      class="hidden flex-1 overflow-y-auto chat-scroll px-4 md:px-lg py-lg flex-col gap-xl z-10 pb-32"></div>
+
+    <!-- Input bar -->
+    <div
+      class="absolute bottom-0 left-0 right-0 p-4 md:p-lg bg-gradient-to-t from-background via-background to-transparent z-20">
+      <div class="max-w-4xl mx-auto relative">
+        <div
+          class="absolute -inset-1 bg-gradient-to-r from-primary/20 via-secondary-container/20 to-primary/20 rounded-3xl blur opacity-30">
+        </div>
+        <div
+          class="relative bg-surface-container/80 backdrop-blur-xl border border-white/10 rounded-3xl p-2 shadow-2xl flex items-end shadow-black/50 transition-all focus-within:border-primary/50 focus-within:bg-surface-container">
+          <textarea id="messageInput" rows="1" placeholder="Ask Nova anything..."
+            class="w-full bg-transparent border-none text-on-surface font-body-md placeholder-on-surface-variant/50 focus:ring-0 resize-none py-3 px-4 max-h-32 min-h-[44px]"></textarea>
+          <div class="flex items-center gap-1 p-2 flex-shrink-0">
+            <button id="sendBtn"
+              class="bg-gradient-to-r from-primary to-secondary-container text-surface-container-lowest p-2.5 rounded-full hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 flex items-center justify-center active:scale-95"
+              aria-label="Send message">
+              <span class="material-symbols-outlined text-sm">send</span>
+            </button>
+          </div>
+        </div>
+        <div class="text-center mt-2">
+          <p class="text-[10px] font-label-md text-on-surface-variant/50 tracking-wide">NovaAI can make mistakes.
+            Consider verifying important information.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>+
